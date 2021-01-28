@@ -12,11 +12,11 @@ print(height)
 print(width)
 
 # hyperparameters
-n_initial_genes = 200
-n_population = 200
+n_initial_genes = 50
+n_population = 50
 prob_mutation = 0.01
-prob_add = 0.6
-prob_remove = 0.4
+prob_add = 0.3
+prob_remove = 0.2
 
 min_radius, max_radius = 20, 40
 save_every_n_iter = 100
@@ -30,7 +30,7 @@ class Gene():
     self.alpha = random.uniform(0, 1)
 
   def mutate(self):
-    mutation_size = max(1, int(round(random.gauss(15, 4)))) / 100
+    mutation_size = max(1, int(round(random.gauss(30, 4)))) / 100
 
     r = random.uniform(0, 1)
     if r < 0.25: # radius
