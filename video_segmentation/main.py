@@ -1,5 +1,20 @@
 
+from model import get_testing_model_resnet101
+import os
+import cv2
 import config
+import sys
+import math
+import time
+import numpy as np
+from scipy.ndimage.filters import gaussian_filter
+from keras.models import load_model
+import code
+import copy
+import scipy.ndimage as sn
+from PIL import Image
+from function import human_seg_combine_argmax, human_seg_combine_argmax_rgb
+
 human_part = [0,1,2,3,4,5,6]
 human_ori_part = [0,1,2,3,4,5,6]
 seg_num = 7 # current model supports 7 parts only
@@ -122,7 +137,6 @@ def process (input_image):
 
     return seg_avg
 
-from model import get_testing_model_resnet101
 
 if  __name__ == '__main__':
     keras_weights_file='cdcl_pascal_model\model_simulated_RGB_mgpu_scaling_append.0024.h5'
@@ -142,6 +156,7 @@ if  __name__ == '__main__':
         if filename.endswith(".png") or filename.endswith(".jpg"):
             print(input_folder+'/'+filename)
             seg = process(input_folder+'/'+filename)
+            seg_argmax = np.argmax(seg, axis=-1)
             seg_max = np.max(seg, axis=-1)
             th_mask = part_thresholding(seg_argmax)
             seg_max_thres = (seg_max > 0.1).astype(np.uint8)

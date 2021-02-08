@@ -141,7 +141,7 @@ def identity_block(input_tensor, kernel_size, filters, stage, block):
     """
     eps = 1.1e-5
     
-    if K.image_dim_ordering() == 'tf':
+    if K.image_data_format() == 'channels_last':
         bn_axis = 3
     else:
         bn_axis = 1
@@ -187,7 +187,7 @@ def conv_block(input_tensor, kernel_size, filters, stage, block, strides=(2, 2))
     """
     eps = 1.1e-5
     
-    if K.image_dim_ordering() == 'tf':
+    if K.image_data_format() == 'channels_last':
         bn_axis = 3
     else:
         bn_axis = 1
@@ -430,13 +430,15 @@ def get_testing_model_resnet101():
     stage0_out = create_pyramid_features(C1, C2, C3, C4, C5)
 
     # Additional layers for learning multi-scale semantics
-    stage0_out = conv(stage0_out, 512, 3, "pyramid_1_CPM", (None, 0))
+    # conv 2개의 마지막 parameter를 (None, 0) -> (0, 0)
+    stage0_out = conv(stage0_out, 512, 3, "pyramid_1_CPM", (0, 0))
     stage0_out = relu(stage0_out)
-    stage0_out = conv(stage0_out, 512, 3, "pyramid_2_CPM", (None, 0))
+    stage0_out = conv(stage0_out, 512, 3, "pyramid_2_CPM", (0, 0))
     stage0_out = relu(stage0_out)
 
     # stage 1 - branch 3 (semantic segmentation)
-    stage1_branch3_out = stage1_segmentation_block(stage0_out, np_branch3, 3, None)
+    # 마지막 param None -> 0
+    stage1_branch3_out = stage1_segmentation_block(stage0_out, np_branch3, 3, 0)
 
 
     model = Model(inputs=[img_input], outputs=[stage1_branch3_out])

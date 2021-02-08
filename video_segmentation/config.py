@@ -1,7 +1,4 @@
-from configobj import ConfigObj
 import numpy as np
-
-[param]
 
 # CPU mode or GPU mode
 use_gpu = 1
@@ -25,7 +22,6 @@ mid_num = 10
 crop_ratio = 2.5
 bbox_ratio = 0.25
 
-[models]
 ## don't edit this part
 
 [[1]]
@@ -36,4 +32,4 @@ boxsize = 368
 padValue = 128
 np = 12
 stride = 8
-part_str = [nose, neck, Rsho, Relb, Rwri, Lsho, Lelb, Lwri, Rhip, Rkne, Rank, Lhip, Lkne, Lank, Leye, Reye, Lear, Rear, pt19]
+# part_str = [nose, neck, Rsho, Relb, Rwri, Lsho, Lelb, Lwri, Rhip, Rkne, Rank, Lhip, Lkne, Lank, Leye, Reye, Lear, Rear, pt19]
