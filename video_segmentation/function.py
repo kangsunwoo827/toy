@@ -12,9 +12,20 @@ import numpy as np
 # g_chan = [0, 127, 0, 127, 255, 0, 0, 127, 255, 0, 255, 127, 255, 127, 255]
 # b_chan = [0, 127, 0, 0, 0, 255, 255, 0, 255, 255, 0, 255, 127, 127, 127]
 
-r_chan = [0, 127, 255, 255, 255, 127, 255]
-g_chan = [0, 127, 0, 127, 255, 0, 0]
-b_chan = [0, 127, 0, 0, 0, 255, 255]
+index0_rgb=[255, 255, 255] #bg
+index1_rgb=[127, 127, 127] #head
+index2_rgb=[255, 0, 0] # torso
+index3_rgb=[0, 255, 0] # upperarm
+index4_rgb=[0, 255, 0] # forearm
+index5_rgb=[0, 0, 255] # thigh
+index6_rgb=[0, 0, 255] # calf
+
+
+rgb_zip=list(zip(index0_rgb, index1_rgb, index2_rgb, index3_rgb, index4_rgb, index5_rgb, index6_rgb))
+
+r_chan = rgb_zip[0]
+g_chan = rgb_zip[1]
+b_chan = rgb_zip[2]
 
 
 png_idx_7parts = [0, 1, 2, 3, 4, 5, 6]

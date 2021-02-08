@@ -163,6 +163,6 @@ if  __name__ == '__main__':
             seg_argmax *= seg_max_thres
             seg_canvas = human_seg_combine_argmax_rgb(seg_argmax)
             cur_canvas = cv2.imread(input_folder+'/'+filename)
-            canvas = cv2.addWeighted(seg_canvas, 0.6, cur_canvas, 0.4, 0)
+            canvas = cv2.addWeighted(seg_canvas, 1, cur_canvas, 0, 0)
             filename = '%s/%s.jpg'%(output_folder,'seg_'+filename)
             cv2.imwrite(filename, canvas) 
